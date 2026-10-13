@@ -8,25 +8,122 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { width: 100%; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; background-color: #111; color: #fff; }
+        
+        body, html { 
+            width: 100%; 
+            height: 100%; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            overflow: hidden; 
+            background-color: #111; /* Fallback */
+            color: #fff; 
+        }
         
         /* Full-screen background slideshow */
-        .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .bg-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
-        .bg-slide.active { opacity: 1; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 0; }
+        .bg-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 0; /* Fixed: Changed from -1 so it sits on top of body background */
+        }
+
+        .bg-slide { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-size: cover; 
+            background-position: center; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+        }
+
+        .bg-slide.active { 
+            opacity: 1; 
+        }
+
+        /* Subtle dark overlay so text is readable over bright photos */
+        .overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: 1; /* Sits above background slides */
+        }
 
         /* Corner Navigation Menu */
-        nav { position: fixed; top: 25px; right: 25px; z-index: 10; display: flex; gap: 12px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.15); }
-        nav button { background: transparent; border: none; color: rgba(255, 255, 255, 0.7); font-size: 14px; font-weight: 500; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: all 0.2s ease; }
-        nav button:hover, nav button.active { color: #fff; background: rgba(255, 255, 255, 0.25); }
+        nav { 
+            position: fixed; 
+            top: 25px; 
+            right: 25px; 
+            z-index: 10; 
+            display: flex; 
+            gap: 12px; 
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(8px); 
+            padding: 8px 12px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+
+        nav button { 
+            background: transparent; 
+            border: none; 
+            color: rgba(255, 255, 255, 0.7); 
+            font-size: 14px; 
+            font-weight: 500; 
+            cursor: pointer; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            transition: all 0.2s ease; 
+        }
+
+        nav button:hover, nav button.active { 
+            color: #fff; 
+            background: rgba(255, 255, 255, 0.25); 
+        }
 
         /* Content Area */
-        .content-wrapper { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; padding: 8vw; }
-        .text-box { max-width: 520px; animation: fadeIn 0.8s ease forwards; }
-        .text-box h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px; color: #fff; }
-        .text-box p { font-size: clamp(1rem, 1.5vw, 1.15rem); font-weight: 300; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-bottom: 16px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-wrapper { 
+            position: relative; 
+            z-index: 2; /* Sits above overlay and background */
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            align-items: center; 
+            padding: 8vw; 
+        }
+
+        .text-box { 
+            max-width: 520px; 
+            animation: fadeIn 0.8s ease forwards; 
+        }
+
+        .text-box h1 { 
+            font-size: clamp(2rem, 4vw, 3.5rem); 
+            font-weight: 300; 
+            letter-spacing: -0.02em; 
+            line-height: 1.1; 
+            margin-bottom: 20px; 
+            color: #fff; 
+        }
+
+        .text-box p { 
+            font-size: clamp(1rem, 1.5vw, 1.15rem); 
+            font-weight: 300; 
+            line-height: 1.6; 
+            color: rgba(255, 255, 255, 0.85); 
+            margin-bottom: 16px; 
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
     </style>
 </head>
 <body>
@@ -47,7 +144,6 @@
 
     <script>
         // --- PHOTO CONFIGURATION ---
-        // Just add your image filenames here once. They will rotate as background slides.
         const imageFilenames = [
             'PXL_20250815_124449417.jpg',
             'PXL_20250818_194327938.jpg',
@@ -57,7 +153,6 @@
         ];
 
         function initBackgrounds() {
-            // Automatically adapts to GitHub Pages subpath (/minimal-photos/)
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const images = imageFilenames.map(file => baseFolder + file);
 
@@ -65,7 +160,7 @@
             images.forEach((src, idx) => {
                 const slide = document.createElement('div');
                 slide.className = `bg-slide ${idx === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url('${src}')`;
+                slide.style.backgroundImage = `url("${src}")`;
                 bgContainer.appendChild(slide);
             });
 
@@ -78,11 +173,10 @@
                         currentIndex = (currentIndex + 1) % images.length;
                         slides[currentIndex].classList.add('active');
                     }
-                }, 5000); // 5 seconds per slide
+                }, 5000);
             }
         }
 
-        // Fetch and render standard Markdown (.md) text files dynamically
         async function loadPage(mdFile, btnElement) {
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
