@@ -46,19 +46,20 @@
     </main>
 
     <script>
-        // Loads image filenames from images.txt in the root directory
-        async function initBackgrounds() {
-            let images = [];
-            try {
-                const response = await fetch('images.txt');
-                const text = await response.text();
-                images = text.split('\n')
-                             .map(line => line.trim())
-                             .filter(line => line.length > 0 && !line.startsWith('#'))
-                             .map(filename => `images/${filename}`);
-            } catch (e) {
-                console.log('Could not load images.txt');
-            }
+        // --- PHOTO CONFIGURATION ---
+        // Just add your image filenames here once. They will rotate as background slides.
+        const imageFilenames = [
+            'PXL_20250815_124449417.jpg',
+            'PXL_20250818_194327938.jpg',
+            'PXL_20260426_132045848.jpg',
+            'PXL_20260717_120230554.MP.jpg',
+            'PXL_20260718_113620218.MP.jpg'
+        ];
+
+        function initBackgrounds() {
+            // Automatically adapts to GitHub Pages subpath (/minimal-photos/)
+            const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
+            const images = imageFilenames.map(file => baseFolder + file);
 
             const bgContainer = document.getElementById('bgContainer');
             images.forEach((src, idx) => {
@@ -77,7 +78,7 @@
                         currentIndex = (currentIndex + 1) % images.length;
                         slides[currentIndex].classList.add('active');
                     }
-                }, 5000);
+                }, 5000); // 5 seconds per slide
             }
         }
 
@@ -89,8 +90,10 @@
             const contentBox = document.getElementById('contentBox');
             contentBox.style.opacity = '0';
 
+            const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/' : './';
+
             try {
-                const response = await fetch(mdFile);
+                const response = await fetch(baseFolder + mdFile);
                 if (!response.ok) throw new Error('File not found');
                 const markdownText = await response.text();
                 
