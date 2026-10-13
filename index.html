@@ -46,35 +46,18 @@
     </main>
 
     <script>
-        // Automatically discovers all JPG files in the /images/ folder
+        // Loads image filenames from images.txt in the root directory
         async function initBackgrounds() {
             let images = [];
             try {
-                const response = await fetch('images/');
-                const htmlText = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                const links = doc.querySelectorAll('a');
-                
-                links.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && href.match(/\.(jpg|jpeg)$/i)) {
-                        const filename = href.split('/').pop();
-                        images.push(`images/${filename}`);
-                    }
-                });
+                const response = await fetch('images.txt');
+                const text = await response.text();
+                images = text.split('\n')
+                             .map(line => line.trim())
+                             .filter(line => line.length > 0 && !line.startsWith('#'))
+                             .map(filename => `images/${filename}`);
             } catch (e) {
-                console.log('Directory scraping fallback activated');
-            }
-
-            // Generic fallback list if directory listing is restricted
-            if (images.length === 0) {
-                images = [
-                    'images/image1.jpg',
-                    'images/image2.jpg',
-                    'images/image3.jpg'
-                ];
+                console.log('Could not load images.txt');
             }
 
             const bgContainer = document.getElementById('bgContainer');
