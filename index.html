@@ -46,28 +46,35 @@
     </main>
 
     <script>
-        // Automatically fetch images from the GitHub repo directory or use fallback list
+        // Automatically discovers all JPG files in the /images/ folder
         async function initBackgrounds() {
             let images = [];
             try {
-                // If hosted on GitHub Pages, automatically read files from the 'images' folder via GitHub API
-                const repoPath = window.location.pathname.split('/')[1];
-                const apiUrl = window.location.hostname.includes('github.io') 
-                    ? `https://api.github.com/repos/${window.location.hostname.split('.')[0]}/${repoPath}/contents/images`
-                    : null;
+                const response = await fetch('images/');
+                const htmlText = await response.text();
                 
-                if (apiUrl) {
-                    const response = await fetch(apiUrl);
-                    const files = await response.json();
-                    images = files.filter(file => file.name.match(/\.(jpg|jpeg|png)$/i)).map(file => file.download_url);
-                }
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const links = doc.querySelectorAll('a');
+                
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href.match(/\.(jpg|jpeg)$/i)) {
+                        const filename = href.split('/').pop();
+                        images.push(`images/${filename}`);
+                    }
+                });
             } catch (e) {
-                console.log('Falling back to default image sequence');
+                console.log('Directory scraping fallback activated');
             }
 
-            // Fallback if local or API fails: Adjust names if needed, or add as many as you want
+            // Generic fallback list if directory listing is restricted
             if (images.length === 0) {
-                images = ['images/photo1.jpg', 'images/photo2.jpg', 'images/photo3.jpg'];
+                images = [
+                    'images/image1.jpg',
+                    'images/image2.jpg',
+                    'images/image3.jpg'
+                ];
             }
 
             const bgContainer = document.getElementById('bgContainer');
@@ -87,7 +94,7 @@
                         currentIndex = (currentIndex + 1) % images.length;
                         slides[currentIndex].classList.add('active');
                     }
-                }, 5000); // 5 seconds per photo
+                }, 5000);
             }
         }
 
