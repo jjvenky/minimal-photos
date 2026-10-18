@@ -1,4 +1,4 @@
-# Quiet Moments
+# Home 🥥🌴🌾
 
 Dr Sportel is an Assistant Professor in the Department of Geography and Environmental Studies at Wilfrid Laurier University.
 
