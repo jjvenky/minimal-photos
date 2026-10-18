@@ -12,7 +12,7 @@
         body, html { 
             width: 100%; 
             height: 100%; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             overflow: hidden; 
             background-color: #111; 
             color: #fff; 
@@ -49,7 +49,7 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.55); 
             z-index: 1; 
         }
 
@@ -85,7 +85,7 @@
             background: rgba(255, 255, 255, 0.25); 
         }
 
-        /* Content Area - Wider & Scrollable */
+        /* Content Area - Wider & Scrollable with Frosted Glass Look */
         .content-wrapper { 
             position: relative; 
             z-index: 2; 
@@ -98,23 +98,42 @@
         }
 
         .text-box { 
-            max-width: 800px; /* Wider text block */
+            max-width: 800px; 
             width: 100%;
-            max-height: 80vh; /* Limits height so long text scrolls */
-            overflow-y: auto; /* Enables smooth scrolling */
-            padding-right: 15px; 
-            animation: fadeIn 0.8s ease forwards; 
-            background: rgba(0, 0, 0, 0.55); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            border-radius: 12px; 
+            max-height: 80vh; 
+            overflow-y: auto; 
             padding: 40px; 
+            background: rgba(0, 0, 0, 0.55); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.8s ease forwards; 
         }
 
         /* Custom scrollbar */
         .text-box::-webkit-scrollbar { width: 6px; }
         .text-box::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 3px; }
         .text-box::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 3px; }
+
+        /* Unified Typography & Spacing Fixes */
+        .text-box h1 {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 28px; /* Generous space between Heading 1 and text/photos */
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-box p {
+            font-size: 1.05rem;
+            line-height: 1.7; /* Consistent comfortable line spacing */
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
 
         /* Team Page Specific Layout Styles */
         .team-member {
@@ -135,21 +154,23 @@
         }
 
         .team-info h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 400;
             margin-bottom: 4px;
             color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         .team-info h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.75);
             margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         .team-info p {
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.85);
         }
@@ -165,7 +186,7 @@
     <div class="bg-container" id="bgContainer"></div>
     <div class="overlay"></div>
 
-    <!-- Update your 4 navigation buttons based on your renamed pages -->
+    <!-- Navigation Menu -->
     <nav>
         <button class="nav-btn active" onclick="loadPage('home.md', this)">Home</button>
         <button class="nav-btn" onclick="loadPage('team.md', this)">Team</button>
@@ -182,7 +203,8 @@
             'PXL_20250815_124449417.jpg',
             'PXL_20250818_194327938.jpg',
             'PXL_20260426_132045848.jpg',
-            'PXL_20260717_120230554.MP.jpg'
+            'PXL_20260717_120230554.MP.jpg',
+            'PXL_20260718_113620218.MP.jpg'
         ];
 
         function initBackgrounds() {
@@ -227,7 +249,6 @@
                 setTimeout(() => {
                     contentBox.innerHTML = marked.parse(markdownText);
 
-                    // Automatic Team Page Formatting
                     if (mdFile === 'team.md') {
                         formatTeamPage(contentBox);
                     }
@@ -236,13 +257,12 @@
                 }, 200);
             } catch (error) {
                 setTimeout(() => {
-                    contentBox.innerHTML = `<h1>Error</h1><p>Could not load ${mdFile}.</p>`;
+                    contentBox.innerHTML = `<h1>Error</h1><p>Could not load ${mdFile}. Ensure the markdown file exists in your repository root.</p>`;
                     contentBox.style.opacity = '1';
                 }, 200);
             }
         }
 
-        // Automatically transforms H2/H3/P into side-by-side team cards with photos
         function formatTeamPage(container) {
             const children = Array.from(container.children);
             container.innerHTML = '';
@@ -251,12 +271,14 @@
             let memberIndex = 0;
             
             children.forEach(child => {
-                if (child.tagName === 'H2') {
+                if (child.tagName === 'H1') {
+                    // Keep the main page title (H1) intact at the top
+                    container.appendChild(child);
+                } else if (child.tagName === 'H2') {
                     memberIndex++;
                     currentMember = document.createElement('div');
                     currentMember.className = 'team-member';
                     
-                    // Slugify name for image filename (e.g., "Jane Doe" -> "jane-doe.jpg")
                     const nameText = child.textContent.trim();
                     const slug = nameText.toLowerCase().replace(/[^a-z0-9]/g, '-');
                     
@@ -265,8 +287,6 @@
                     img.src = baseFolder + `${slug}.jpg`;
                     img.alt = nameText;
                     img.className = 'team-avatar';
-                    
-                    // Fallback to numbered team image if slug image isn't found
                     img.onerror = () => { img.src = baseFolder + `team-${memberIndex}.jpg`; };
                     
                     const infoDiv = document.createElement('div');
