@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>LLADR</title>
     <!-- Include Marked.js to parse Markdown instantly in the browser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -133,10 +133,10 @@
 
     <!-- Corner Menu matching your 3 pages -->
     <nav>
-        <button class="nav-btn active" onclick="loadPage('page1.md', this)">Home</button>
-        <button class="nav-btn" onclick="loadPage('page2.md', this)">About</button>
-        <button class="nav-btn" onclick="loadPage('page3.md', this)">Research</button>
-        <button class="nav-btn" onclick="loadPage('page4.md', this)">Opportunities</button>
+        <button class="nav-btn active" onclick="loadPage('home.md', this)">Home</button>
+        <button class="nav-btn" onclick="loadPage('team.md', this)">Team</button>
+        <button class="nav-btn" onclick="loadPage('research.md', this)">Research</button>
+        <button class="nav-btn" onclick="loadPage('opportunities.md', this)">Opportunities</button>
     </nav>
 
     <main class="content-wrapper">
@@ -206,7 +206,7 @@
 
         window.onload = () => {
             initBackgrounds();
-            loadPage('page1.md', document.querySelector('.nav-btn'));
+            loadPage('home.md', document.querySelector('.nav-btn'));
         };
     </script>
 </body>

@@ -1,7 +1,0 @@
-# About
-
-I completed my graduate studies at the University of Guelph, receiving my PhD in Development Geography (2013) and my MSc in Rural Extension Studies and International Development (2002). My undergraduate degree, a BES in Geography (1999), is from the University of Waterloo. Prior to joining Laurier (2019), I was an Instructor at the University of the Fraser Valley where I taught eight to ten courses per year.
-
-I am a development geographer broadly interested in the politics of socio-economic and environmental change, with thematic interests in political ecology, labour geography, and sustainable livelihoods. Regionally my research has primarily been in rural areas, with a strong commitment to India, its professional research networks, and several rural communities in the states of Tamil Nadu and Kerala.
-
-Growing up in the rural outskirts of a Northwestern Ontario resource town fueled my passion to explore human-environment relations and processes of marginalisation. Early-on I recognized the injustices, barriers, and structural inequalities Indigenous and poor community members faced, community divisions (e.g. Non-Indigenous/Indigenous, rural/urban, European Settlers/South Asian Immigrants), and the relationship between the environment and people's identity and livelihoods. But I lacked the knowledge and language to effectively understand and articulate these issues. This lead me to gravitate toward mentors and scholarship within development geography.
