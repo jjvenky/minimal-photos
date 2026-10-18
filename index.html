@@ -14,7 +14,7 @@
             height: 100%; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             overflow: hidden; 
-            background-color: #111; /* Fallback */
+            background-color: #111; 
             color: #fff; 
         }
         
@@ -25,7 +25,7 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            z-index: 0; /* Fixed: Changed from -1 so it sits on top of body background */
+            z-index: 0; 
         }
 
         .bg-slide { 
@@ -40,19 +40,17 @@
             transition: opacity 1.5s ease-in-out; 
         }
 
-        .bg-slide.active { 
-            opacity: 1; 
-        }
+        .bg-slide.active { opacity: 1; }
 
-        /* Subtle dark overlay so text is readable over bright photos */
+        /* Dark overlay for contrast */
         .overlay { 
             position: fixed; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: rgba(0, 0, 0, 0.4); 
-            z-index: 1; /* Sits above background slides */
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
         }
 
         /* Corner Navigation Menu */
@@ -87,37 +85,73 @@
             background: rgba(255, 255, 255, 0.25); 
         }
 
-        /* Content Area */
+        /* Content Area - Wider & Scrollable */
         .content-wrapper { 
             position: relative; 
-            z-index: 2; /* Sits above overlay and background */
+            z-index: 2; 
             width: 100%; 
             height: 100%; 
             display: flex; 
             align-items: center; 
             padding: 8vw; 
+            overflow-y: auto; 
         }
 
         .text-box { 
-            max-width: 520px; 
+            max-width: 800px; /* Wider text block */
+            width: 100%;
+            max-height: 80vh; /* Limits height so long text scrolls */
+            overflow-y: auto; /* Enables smooth scrolling */
+            padding-right: 15px; 
             animation: fadeIn 0.8s ease forwards; 
+            background: rgba(0, 0, 0, 0.55); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 12px; 
+            padding: 40px; 
         }
 
-        .text-box h1 { 
-            font-size: clamp(2rem, 4vw, 3.5rem); 
-            font-weight: 300; 
-            letter-spacing: -0.02em; 
-            line-height: 1.1; 
-            margin-bottom: 20px; 
-            color: #fff; 
+        /* Custom scrollbar */
+        .text-box::-webkit-scrollbar { width: 6px; }
+        .text-box::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 3px; }
+        .text-box::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 3px; }
+
+        /* Team Page Specific Layout Styles */
+        .team-member {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            margin-bottom: 35px;
         }
 
-        .text-box p { 
-            font-size: clamp(1rem, 1.5vw, 1.15rem); 
-            font-weight: 300; 
-            line-height: 1.6; 
-            color: rgba(255, 255, 255, 0.85); 
-            margin-bottom: 16px; 
+        .team-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .team-info h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .team-info h3 {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 12px;
+        }
+
+        .team-info p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
         }
 
         @keyframes fadeIn { 
@@ -131,7 +165,7 @@
     <div class="bg-container" id="bgContainer"></div>
     <div class="overlay"></div>
 
-    <!-- Corner Menu matching your 3 pages -->
+    <!-- Update your 4 navigation buttons based on your renamed pages -->
     <nav>
         <button class="nav-btn active" onclick="loadPage('home.md', this)">Home</button>
         <button class="nav-btn" onclick="loadPage('team.md', this)">Team</button>
@@ -144,20 +178,18 @@
     </main>
 
     <script>
-        // --- PHOTO CONFIGURATION ---
         const imageFilenames = [
             'PXL_20250815_124449417.jpg',
             'PXL_20250818_194327938.jpg',
             'PXL_20260426_132045848.jpg',
-            'PXL_20260717_120230554.MP.jpg',
-            'PXL_20260718_113620218.MP.jpg'
+            'PXL_20260717_120230554.MP.jpg'
         ];
 
         function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const images = imageFilenames.map(file => baseFolder + file);
-
             const bgContainer = document.getElementById('bgContainer');
+
             images.forEach((src, idx) => {
                 const slide = document.createElement('div');
                 slide.className = `bg-slide ${idx === 0 ? 'active' : ''}`;
@@ -194,14 +226,62 @@
                 
                 setTimeout(() => {
                     contentBox.innerHTML = marked.parse(markdownText);
+
+                    // Automatic Team Page Formatting
+                    if (mdFile === 'team.md') {
+                        formatTeamPage(contentBox);
+                    }
+
                     contentBox.style.opacity = '1';
                 }, 200);
             } catch (error) {
                 setTimeout(() => {
-                    contentBox.innerHTML = `<h1>Error</h1><p>Could not load ${mdFile}. Ensure the markdown file exists in your repository root.</p>`;
+                    contentBox.innerHTML = `<h1>Error</h1><p>Could not load ${mdFile}.</p>`;
                     contentBox.style.opacity = '1';
                 }, 200);
             }
+        }
+
+        // Automatically transforms H2/H3/P into side-by-side team cards with photos
+        function formatTeamPage(container) {
+            const children = Array.from(container.children);
+            container.innerHTML = '';
+            
+            let currentMember = null;
+            let memberIndex = 0;
+            
+            children.forEach(child => {
+                if (child.tagName === 'H2') {
+                    memberIndex++;
+                    currentMember = document.createElement('div');
+                    currentMember.className = 'team-member';
+                    
+                    // Slugify name for image filename (e.g., "Jane Doe" -> "jane-doe.jpg")
+                    const nameText = child.textContent.trim();
+                    const slug = nameText.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    
+                    const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
+                    const img = document.createElement('img');
+                    img.src = baseFolder + `${slug}.jpg`;
+                    img.alt = nameText;
+                    img.className = 'team-avatar';
+                    
+                    // Fallback to numbered team image if slug image isn't found
+                    img.onerror = () => { img.src = baseFolder + `team-${memberIndex}.jpg`; };
+                    
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'team-info';
+                    infoDiv.appendChild(child);
+                    
+                    currentMember.appendChild(img);
+                    currentMember.appendChild(infoDiv);
+                    container.appendChild(currentMember);
+                } else if (currentMember) {
+                    currentMember.querySelector('.team-info').appendChild(child);
+                } else {
+                    container.appendChild(child);
+                }
+            });
         }
 
         window.onload = () => {
