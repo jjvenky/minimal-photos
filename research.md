@@ -4,6 +4,6 @@ The particular foci of my research and publications to date include sustainable 
 
 Blackman T, Sportel TS, Walton-Roberts M. 2022. Placing Care Work in the Future of Work Discourse. Glocalism: Journal of Culture, Politics and Innovation, 3. <https://doi.org/10.12893/gjcpi.2022.3.6>.
 
-Sportel TS, Véron R. 2016. Coconut Crisis in Kerala? Mainstream Narrative and Alternative Perspectives. Development and Change, 47: 1051-1077. <https://doi.org/10.1111/dech.12260>
+Sportel TS, Véron R. 2016. Coconut Crisis in Kerala? Mainstream Narrative and Alternative Perspectives. Development and Change, 47: 1051-1077. <https://doi.org/10.1111/dech.12260>.
 
 Sportel TS. 2013. Agency within a socially regulated labour market: A study of ‘unorganised’ agricultural labour in Kerala. Geoforum, 47: 42-52. <https://doi.org/10.1016/j.geoforum.2013.02.007>.
