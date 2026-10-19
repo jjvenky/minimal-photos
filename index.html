@@ -325,7 +325,7 @@
                     img.src = baseFolder + `${slug}.jpg`;
                     img.alt = nameText;
                     img.className = 'team-avatar';
-                    img.onerror = () => { img.src = baseFolder + `team-${memberIndex}.jpg`; };
+                    img.onerror = () => { img.src = baseFolder + 'team-default.jpg'; };
                     
                     const infoDiv = document.createElement('div');
                     infoDiv.className = 'team-info';
