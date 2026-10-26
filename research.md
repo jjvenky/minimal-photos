@@ -4,7 +4,7 @@ LLADR grew out of doctoral fieldwork in the coconut economy of Keralam, India, d
 
 Our long-term objective is to establish a robust understanding of key development transitions influencing agrarian livelihood change, and rural labour dynamics in South India, while creating mechanisms for tangible contributions within communities, including policy briefs and training with industry and government bodies. Correspondence about any of this work, including from students and collaborators working on similar questions, is welcome.
 
-## Current project
+## Current projects
 
 - Comparative livelihood change in Keralam's coconut economy, 2007/08 to 2023/25. This project returns to two contrasting regions to examine how livelihoods associated with the industry have changed across a sixteen-year period. A manuscript from this work is under review.
 - Labour and livelihoods in Keralam's toddy sector, 2024 to present. This project examines labour dynamics, caste-demarcated work and social mobility within a state-regulated industry worked by largely unorganised labour, drawing on interviews with palm farmers, palm and coconut tappers, toddy shop owners and excise officials.
