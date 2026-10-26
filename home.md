@@ -1,5 +1,5 @@
 # Home 🥥🌴🌾
 
-Dr Sportel is an Assistant Professor in the Department of Geography and Environmental Studies at Wilfrid Laurier University.
+LLADR (Labour, Livelihoods and Development Research Group) is led by Dr Sportel, an Assistant Professor in the Department of Geography and Environmental Studies at Wilfrid Laurier University.
 
-LLADR focuses on agrarian change and sustainable livelihoods in South Asia. We something something development geography with some political ecology stuff. We use semi-structured interviews to understand important things. Our current research focuses on the transition of traditional caste-based livelihoods and rural development. This is agricultural change since crafters and artisans are part of the agrarian economy and face significant problems as society and economy have evolved.
+We focus on rural development, centring a sustainable livelihoods approach and labour geography with explicit attention to political economy and political ecology in South Asia. Our methods are mixed, relying on quantitative descriptive and qualitative approaches, and prioritising community-engaged research. Our current research seeks to understand various facets of agrarian change as Keralam, India’s economy diversifies, including changing social relations and evolving power dynamics.
