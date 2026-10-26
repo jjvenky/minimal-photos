@@ -287,7 +287,8 @@
     </main>
 
     <script>
-async function initBackgrounds() {
+
+        async function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const txtFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/' : './';
             const bgContainer = document.getElementById('bgContainer');
@@ -330,7 +331,6 @@ async function initBackgrounds() {
                 }, 5000);
             }
         }
-
         function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const images = imageFilenames.map(file => baseFolder + file);
