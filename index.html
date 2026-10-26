@@ -287,43 +287,50 @@
     </main>
 
     <script>
-async function initBackgrounds() {
+        async function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const txtFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/' : './';
             const bgContainer = document.getElementById('bgContainer');
 
+            // Fallback array just in case backgrounds.txt fails to fetch
+            let imageFilenames = [
+                'PXL_20240508_123143202.MP.jpg', 'PXL_20240511_120225119.MP.jpg',
+                'PXL_20240528_023311299.MP.jpg', 'PXL_20240529_113956808.MP.jpg'
+            ];
+
             try {
                 const response = await fetch(txtFolder + 'backgrounds.txt');
-                if (!response.ok) throw new Error('Could not load backgrounds.txt');
-                const text = await response.text();
-                
-                // Split by lines, clean up whitespace, and remove empty lines
-                const imageFilenames = text.split('\n').map(f => f.trim()).filter(f => f.length > 0);
-                const images = imageFilenames.map(file => baseFolder + file);
-
-                images.forEach((src, idx) => {
-                    const slide = document.createElement('div');
-                    slide.className = `bg-slide ${idx === 0 ? 'active' : ''}`;
-                    slide.style.backgroundImage = `url("${src}")`;
-                    bgContainer.appendChild(slide);
-                });
-
-                if (images.length > 1) {
-                    let currentIndex = 0;
-                    setInterval(() => {
-                        const slides = bgContainer.querySelectorAll('.bg-slide');
-                        if(slides.length > 0) {
-                            slides[currentIndex].classList.remove('active');
-                            currentIndex = (currentIndex + 1) % images.length;
-                            slides[currentIndex].classList.add('active');
-                        }
-                    }, 5000);
+                if (response.ok) {
+                    const text = await response.text();
+                    const lines = text.split('\n').map(f => f.trim()).filter(f => f.length > 0);
+                    if (lines.length > 0) imageFilenames = lines;
                 }
             } catch (error) {
-                console.error('Background loading error:', error);
+                console.log('Using fallback backgrounds list');
+            }
+
+            const images = imageFilenames.map(file => baseFolder + file);
+
+            images.forEach((src, idx) => {
+                const slide = document.createElement('div');
+                slide.className = `bg-slide ${idx === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url("${src}")`;
+                bgContainer.appendChild(slide);
+            });
+
+            if (images.length > 1) {
+                let currentIndex = 0;
+                setInterval(() => {
+                    const slides = bgContainer.querySelectorAll('.bg-slide');
+                    if(slides.length > 0) {
+                        slides[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        slides[currentIndex].classList.add('active');
+                    }
+                }, 5000);
             }
         }
-
+        
         function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
             const images = imageFilenames.map(file => baseFolder + file);
