@@ -287,13 +287,42 @@
     </main>
 
     <script>
-        const imageFilenames = [
-            'PXL_20250815_124449417.jpg',
-            'PXL_20250818_194327938.jpg',
-            'PXL_20260426_132045848.jpg',
-            'PXL_20260717_120230554.MP.jpg',
-            'PXL_20260718_113620218.MP.jpg'
-        ];
+async function initBackgrounds() {
+            const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
+            const txtFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/' : './';
+            const bgContainer = document.getElementById('bgContainer');
+
+            try {
+                const response = await fetch(txtFolder + 'backgrounds.txt');
+                if (!response.ok) throw new Error('Could not load backgrounds.txt');
+                const text = await response.text();
+                
+                // Split by lines, clean up whitespace, and remove empty lines
+                const imageFilenames = text.split('\n').map(f => f.trim()).filter(f => f.length > 0);
+                const images = imageFilenames.map(file => baseFolder + file);
+
+                images.forEach((src, idx) => {
+                    const slide = document.createElement('div');
+                    slide.className = `bg-slide ${idx === 0 ? 'active' : ''}`;
+                    slide.style.backgroundImage = `url("${src}")`;
+                    bgContainer.appendChild(slide);
+                });
+
+                if (images.length > 1) {
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        const slides = bgContainer.querySelectorAll('.bg-slide');
+                        if(slides.length > 0) {
+                            slides[currentIndex].classList.remove('active');
+                            currentIndex = (currentIndex + 1) % images.length;
+                            slides[currentIndex].classList.add('active');
+                        }
+                    }, 5000);
+                }
+            } catch (error) {
+                console.error('Background loading error:', error);
+            }
+        }
 
         function initBackgrounds() {
             const baseFolder = window.location.pathname.includes('/minimal-photos') ? '/minimal-photos/images/' : 'images/';
