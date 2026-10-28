@@ -10,4 +10,4 @@ Terah Sportel is an Assistant Professor in the Department of Geography and Envir
 
 ### Research Associate
 
-Jithin Raj R is an Independent Researcher in Thiruvananthapuram, Keralam, India, specialising in human geography and development studies. He has conducted research on sustainable rural livelihoods, globalisation, migration, agrarian change, and cottage industries (2007 – 2009, 2024 – present). He has extensive experience ethically designing, planning, and conducting field research, engaging with communities, and managing a research team.
+Jithin Raj R is an Independent Researcher in Thiruvananthapuram, Keralam, India, specialising in human geography and development studies. He has conducted research on sustainable rural livelihoods, globalisation, migration, agrarian change, and cottage industries (2007 – 2009, 2023 – present). He has extensive experience ethically designing, planning, and conducting field research, engaging with communities, and managing a research team.
