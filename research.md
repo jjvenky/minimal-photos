@@ -6,9 +6,9 @@ Our long-term objective is to establish a nuanced understanding of key developme
 
 ## Current projects
 
-- Comparative livelihood change in Keralam's coconut economy, 2007/08 to 2023/25. This project returns to two contrasting regions to examine how livelihoods associated with the industry have changed across a sixteen-year period. A manuscript from this work is under review.
-- Labour and livelihoods in Keralam's toddy sector, 2024 to present. This project examines labour dynamics, caste-demarcated work, and social mobility within a state-regulated industry worked by largely unorganised labour, drawing on interviews with palm farmers, palm and coconut tappers, toddy shop owners and excise officials.
-- Handloom livelihoods in Keralam, 2026. This project examines the contraction of a long-protected industry through the accounts of weavers, merchants and co-operative societies. A manuscript from this work is under review.
+- *Comparative livelihood change in Keralam's coconut economy, 2007/08 to 2023/25.* This project returns to two contrasting regions to examine how livelihoods associated with the industry have changed across a sixteen-year period. A manuscript from this work is under review.
+- *Labour and livelihoods in Keralam's toddy sector, 2024 to present.* This project examines labour dynamics, caste-demarcated work, and social mobility within a state-regulated industry worked by largely unorganised labour, drawing on interviews with palm farmers, palm and coconut tappers, toddy shop owners and excise officials.
+- *Handloom livelihoods in Keralam, 2026.* This project examines the contraction of a long-protected industry through the accounts of weavers, merchants and co-operative societies. A manuscript from this work is under review.
 
 ## Publications
 
